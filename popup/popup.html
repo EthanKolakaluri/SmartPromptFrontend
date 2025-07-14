@@ -2,32 +2,209 @@
 <html>
 <head>
   <title>Prompt Optimizer</title>
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      width: 350px;
+      padding: 16px;
+      margin: 0;
+      background: #f8f9fa;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    h1 {
+      font-size: 18px;
+      margin: 0 0 8px 0;
+      color: #202124;
+      text-align: center;
+    }
+    #prompt-input {
+      width: 100%;
+      min-height: 80px;
+      padding: 8px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      resize: vertical;
+      font-family: inherit;
+    }
+    #execute {
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.2s;
+      margin-top: 8px;
+    }
+    #execute:hover {
+      background-color: #1765cc;
+    }
+    #status {
+      padding: 8px;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 14px;
+      min-height: 20px;
+    }
+    #optimizer-result {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .result-container {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 12px;
+      background: white;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .result-header {
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+    .score-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-left: 8px;
+    }
+    .optimized-prompt {
+      background: #f8f9fa;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 8px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      line-height: 1.4;
+      border-left: 3px solid #1a73e8;
+    }
+    .suggestions {
+      margin-top: 12px;
+    }
+    .suggestions ul {
+      margin: 6px 0 0 0;
+      padding-left: 20px;
+    }
+    .suggestions li {
+      margin-bottom: 4px;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .action-button {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    #copy-optimized {
+      background-color: #10a37f;
+      color: white;
+      border: none;
+    }
+    #copy-optimized:hover {
+      background-color: #0d8a6d;
+    }
+    #replace-original {
+      background-color: white;
+      border: 1px solid #dadce0;
+      color: #1a73e8;
+    }
+    #replace-original:hover {
+      background-color: #f1f3f4;
+    }
+    .legend {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #5f6368;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .color-box {
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      border-radius: 3px;
+    }
+    .green { background-color: #4CAF50; }
+    .yellow { background-color: #FFC107; }
+    .red { background-color: #F44336; }
+    .input-label {
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: #5f6368;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>Prompt Optimizer</h1>
-    <div class="api-key-container">
-      <label for="api-key">OpenAI API Key:</label>
-      <input type="password" id="api-key" placeholder="sk-...">
-      <button id="save-key">Save</button>
+    <h1>SmartPrompt</h1>
+    
+    <div class="input-label">Paste your ChatGPT prompt:</div>
+    <textarea id="prompt-input" placeholder="Copy/paste your prompt here..."></textarea>
+    
+    <button id="execute">Analyze & Optimize</button>
+    <div id="status"></div>
+    
+    <!-- Results Container (Initially Hidden) -->
+    <div id="optimizer-result" style="display: none;">
+      <div class="result-container">
+        <div class="result-header">
+          Optimized Version
+          <span id="score-badge" class="score-badge" style="background-color: #4CAF50; color: white;">92%</span>
+        </div>
+        <div id="optimized-text" class="optimized-prompt">
+          <!-- Reworded content will appear here -->
+        </div>
+        
+        <div class="suggestions">
+          <div class="result-header">Suggestions</div>
+          <ul id="suggestions-list">
+            <!-- Suggestions will appear here -->
+          </ul>
+        </div>
+        
+        <div class="action-buttons">
+          <button id="copy-optimized" class="action-button">Copy Optimized</button>
+          <button id="replace-original" class="action-button">Replace Original</button>
+        </div>
+      </div>
     </div>
-    <div class="status" id="status"></div>
+    
     <div class="legend">
       <div class="legend-item">
         <div class="color-box green"></div>
-        <span>90-100% (Excellent)</span>
+        <span>80-100% (Excellent)</span>
       </div>
       <div class="legend-item">
         <div class="color-box yellow"></div>
-        <span>80-89% (Good)</span>
+        <span>60-79% (Good)</span>
       </div>
       <div class="legend-item">
         <div class="color-box red"></div>
-        <span>0-79% (Needs improvement)</span>
+        <span>0-59% (Needs work)</span>
       </div>
     </div>
   </div>
+  
   <script src="popup.js"></script>
 </body>
 </html>
