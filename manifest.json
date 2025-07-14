@@ -3,6 +3,13 @@
   "name": "SmartPrompt",
   "version": "1.0",
   "description": "Estimates AI prompt effectiveness with visual feedback",
+
+  "icons": {
+    "16": "popup/SmartPrompt.png",
+    "32": "popup/SmartPrompt.png",
+    "48": "popup/SmartPrompt.png",
+    "128": "popup/SmartPrompt.png"
+  },
   
   "action": {
     "default_icon": {
