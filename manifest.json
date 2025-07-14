@@ -13,7 +13,48 @@
       "matches": ["https://chat.openai.com/*", "https://chatgpt.com/*"],
       "js": ["content.js"],
       "run_at": "document_end"
+    }{
+  "manifest_version": 3,
+  "name": "SmartPrompt",
+  "version": "1.0",
+  "description": "Estimates AI prompt effectiveness with visual feedback",
+  
+  "action": {
+    "default_icon": {
+      "16": "popup/SmartPrompt.png",
+      "24": "popup/SmartPrompt.png",
+      "32": "popup/SmartPrompt.png"
+    },
+    "default_popup": "popup/popup.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://chat.openai.com/*", "https://chatgpt.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
     }
+  ],
+  
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage",
+    "identity",
+    "https://smart-prompt-lake.vercel.app/*"
+  ],
+  
+  "host_permissions": [
+    "https://api.openai.com/*",
+    "https://chat.openai.com/*",
+    "https://chatgpt.com/*"
+  ],
+  
+  "web_accessible_resources": [{
+    "resources": ["content.js"],
+    "matches": ["https://chat.openai.com/*", "https://chatgpt.com/*"]
+  }]
+}
   ],
   
   "permissions": [
