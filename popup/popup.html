@@ -152,57 +152,87 @@
       margin-bottom: 4px;
       color: #5f6368;
     }
+    /* Limit Message Styles */
+    #limit-message {
+      display: none;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 12px;
+      text-align: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    #limit-message p {
+      margin: 0 0 12px 0;
+      font-size: 15px;
+      color: #202124;
+    }
+    #limit-message small {
+      font-size: 13px;
+      color: #5f6368;
+    }
+    #waitlist-link {
+      color: #1a73e8;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    #waitlist-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>SmartPrompt</h1>
-    
-    <div class="input-label">Paste your ChatGPT prompt:</div>
-    <textarea id="prompt-input" placeholder="Copy/paste your prompt here..."></textarea>
-    
-    <button id="execute">Analyze & Optimize</button>
-    <div id="status"></div>
-    
-    <!-- Results Container (Initially Hidden) -->
-    <div id="optimizer-result" style="display: none;">
-      <div class="result-container">
-        <div class="result-header">
-          Optimized Version
-          <span id="score-badge" class="score-badge" style="background-color: #4CAF50; color: white;">92%</span>
-        </div>
-        <div id="optimized-text" class="optimized-prompt">
-          <!-- Reworded content will appear here -->
-        </div>
         
-        <div class="suggestions">
-          <div class="result-header">Suggestions</div>
-          <ul id="suggestions-list">
-            <!-- Suggestions will appear here -->
-          </ul>
+    <div id="main-content">
+      <button id="execute">Analyze & Optimize</button>
+      <div id="status"></div>
+      
+      <!-- Results Container (Initially Hidden) -->
+      <div id="optimizer-result" style="display: none;">
+        <div class="result-container">
+          <div class="result-header">
+            Optimized Version
+            <span id="score-badge" class="score-badge" style="background-color: #4CAF50; color: white;">92%</span>
+          </div>
+          <div id="optimized-text" class="optimized-prompt">
+            <!-- Reworded content will appear here -->
+          </div>
+          
+          <div class="suggestions">
+            <div class="result-header">Suggestions</div>
+            <ul id="suggestions-list">
+              <!-- Suggestions will appear here -->
+            </ul>
+          </div>
+          
+          <div class="action-buttons">
+            <button id="copy-optimized" class="action-button">Copy Optimized</button>
+          </div>
         </div>
-        
-        <div class="action-buttons">
-          <button id="copy-optimized" class="action-button">Copy Optimized</button>
-          <button id="replace-original" class="action-button">Replace Original</button>
+      </div>
+      
+      
+      <div class="legend">
+        <div class="legend-item">
+          <div class="color-box green"></div>
+          <span>80-100% (Excellent)</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-box yellow"></div>
+          <span>60-79% (Good)</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-box red"></div>
+          <span>0-59% (Needs work)</span>
         </div>
       </div>
     </div>
-    
-    <div class="legend">
-      <div class="legend-item">
-        <div class="color-box green"></div>
-        <span>80-100% (Excellent)</span>
-      </div>
-      <div class="legend-item">
-        <div class="color-box yellow"></div>
-        <span>60-79% (Good)</span>
-      </div>
-      <div class="legend-item">
-        <div class="color-box red"></div>
-        <span>0-59% (Needs work)</span>
-      </div>
-    </div>
+
+    <!-- Limit Message Container (Initially Hidden) -->
+    <div id="limit-message"></div>
   </div>
   
   <script src="popup.js"></script>
