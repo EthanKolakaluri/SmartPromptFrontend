@@ -194,27 +194,34 @@
       <!-- Results Container (Initially Hidden) -->
       <div id="optimizer-result" style="display: none;">
         <div class="result-container">
+          
+          <!-- 1. Original Prompt Accuracy -->
           <div class="result-header">
-            Optimized Version
+            Original Prompt Accuracy:
             <span id="score-badge" class="score-badge" style="background-color: #4CAF50; color: white;">92%</span>
           </div>
-          <div id="optimized-text" class="optimized-prompt">
-            <!-- Reworded content will appear here -->
-          </div>
-          
+
+          <!-- 2. Suggestions -->
           <div class="suggestions">
             <div class="result-header">Suggestions</div>
             <ul id="suggestions-list">
               <!-- Suggestions will appear here -->
             </ul>
           </div>
-          
+
+          <div style="height: 8px;"></div>
+
+          <div class="result-header">Optimized Version</div>
+            <div id="optimized-text" class="optimized-prompt">
+              <!-- Reworded content will appear here -->
+          </div>
+
+          <!-- Buttons -->
           <div class="action-buttons">
             <button id="copy-optimized" class="action-button">Copy Optimized</button>
           </div>
         </div>
       </div>
-      
       
       <div class="legend">
         <div class="legend-item">
