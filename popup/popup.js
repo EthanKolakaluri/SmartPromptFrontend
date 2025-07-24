@@ -83,8 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!tab) throw new Error('No active tab found');
 
-      statusDiv.textContent = 'Analyzing prompt...';
-      statusDiv.style.color = '#2196F3';
+      statusDiv.textContent = 'Analyzing Prompt...';
+      statusDiv.style.color = '#808080';
       resultDiv.style.display = 'none'; // Hide results during analysis
 
       // Inject content script
@@ -116,8 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Display results
-      statusDiv.textContent = 'Analysis complete';
-      statusDiv.style.color = '#4CAF50';
+      statusDiv.textContent = 'Analysis Complete';
+      statusDiv.style.color = '#808080';
 
       // Update score badge
       const scoreColor = analysis.Evaluation.Accuracy >= 80 ? '#4CAF50' :
