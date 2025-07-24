@@ -8,7 +8,7 @@
       width: 350px;
       padding: 16px;
       margin: 0;
-      background: #f8f9fa;
+      background: #FFFFFF;
     }
     .container {
       display: flex;
@@ -31,7 +31,7 @@
       font-family: inherit;
     }
     #execute {
-      background-color: #1a73e8;
+      background-color: #8000D7;
       color: white;
       border: none;
       padding: 10px 16px;
@@ -43,7 +43,7 @@
       margin-top: 8px;
     }
     #execute:hover {
-      background-color: #1765cc;
+      background-color: #9A33E6;
     }
     #status {
       padding: 8px;
@@ -86,7 +86,7 @@
       white-space: pre-wrap;
       word-wrap: break-word;
       line-height: 1.4;
-      border-left: 3px solid #1a73e8;
+      border-left: 3px solid #8000D7;
     }
     .suggestions {
       margin-top: 12px;
@@ -113,20 +113,20 @@
       transition: all 0.2s;
     }
     #copy-optimized {
-      background-color: #10a37f;
-      color: white;
-      border: none;
+      background-color: #FFFFFF;
+      color: black;
+      border: 1px solid black;
     }
     #copy-optimized:hover {
-      background-color: #0d8a6d;
+      background-color: #808080;
     }
     #replace-original {
-      background-color: white;
-      border: 1px solid #dadce0;
-      color: #1a73e8;
+      background-color: #8000D7;
+      border: none;
+      color: white;
     }
     #replace-original:hover {
-      background-color: #f1f3f4;
+      background-color: #9A33E6;
     }
     .legend {
       margin-top: 12px;
@@ -184,8 +184,9 @@
 </head>
 <body>
   <div class="container">
-    <h1>SmartPrompt</h1>
-        
+    <h1>
+      <img src="SmartPrompt.png" alt="Product Logo" width="200">
+    </h1>    
     <div id="main-content">
       <button id="execute">Analyze & Optimize</button>
       <div id="status"></div>
