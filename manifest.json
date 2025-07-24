@@ -5,17 +5,17 @@
   "description": "Estimates AI prompt effectiveness with visual feedback",
   
   "icons": {
-    "16": "popup/SmartPrompt.png",
-    "32": "popup/SmartPrompt.png",
-    "48": "popup/SmartPrompt.png",
-    "128": "popup/SmartPrompt.png"
+    "16": "popup/SmartPrompt2.png",
+    "32": "popup/SmartPrompt2.png",
+    "48": "popup/SmartPrompt2.png",
+    "128": "popup/SmartPrompt2.png"
   },
 
   "action": {
     "default_icon": {
-      "16": "popup/SmartPrompt.png",
-      "24": "popup/SmartPrompt.png",
-      "32": "popup/SmartPrompt.png"
+      "16": "popup/SmartPrompt2.png",
+      "24": "popup/SmartPrompt2.png",
+      "32": "popup/SmartPrompt2.png"
     },
     "default_popup": "popup/popup.html"
   },
