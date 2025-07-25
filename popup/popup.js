@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       document.getElementById('waitlist-link').addEventListener('click', (e) => {
         e.preventDefault();
-        chrome.tabs.create({ url: 'https://docs.google.com/forms/d/e/1FAIpQLSeREaRGH7fAJy7UDj22mJ6hODO-jM1Lt9trJNyI4KER6nImYw/viewform?usp=header' });
+        chrome.tabs.create({ url: 'https://docs.google.com/forms/d/e/1FAIpQLSeREaRGH7fAJy7UDj22mJ6hODO-jM1Lt9trJNyI4KER6nImYw/viewform?usp=dialog' });
       });
     }
   });
