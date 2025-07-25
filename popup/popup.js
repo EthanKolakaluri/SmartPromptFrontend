@@ -67,12 +67,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const injectionResult = await chrome.scripting.executeScript({
         target: { tabId: tab.id },
         func: () => {
-          const paragraphs = document.querySelectorAll('p'); // Get ALL <p> elements
-          const lastParagraph = paragraphs.length > 0 
-            ? paragraphs[paragraphs.length - 1] // Select the last one
-            : null;
-          return lastParagraph?.textContent?.trim() || null;
-        }
+          // Try standard query first
+          let paragraphs = document.querySelectorAll('#prompt-textarea p');
+          
+          // If empty, check for shadow DOM
+          if (paragraphs.length === 0) {
+            const textarea = document.getElementById('prompt-textarea');
+            paragraphs = textarea?.shadowRoot?.querySelectorAll('p') || [];
+          }
+          
+          return paragraphs.length > 0 
+                ? Array.from(paragraphs).map(p => p.textContent.trim()).join('\n\n')
+                : null;        
+          }
       });
 
       const promptText = injectionResult[0]?.result;
