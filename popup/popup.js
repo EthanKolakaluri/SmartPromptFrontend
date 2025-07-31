@@ -59,33 +59,51 @@ document.addEventListener('DOMContentLoaded', () => {
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
       // Check if we're on ChatGPT
-      if (!tab?.url?.includes('chatgpt.com')) {
-        throw new Error('Please open chatgpt.com first.');
+      if (!(tab?.url?.includes('chatgpt.com') || tab?.url?.includes('lovable.dev') ||
+       tab?.url?.includes('claude.ai'))) {
+        throw new Error('Please open another site');
       }
 
       // Fetch prompt content ONCE when clicked
       const injectionResult = await chrome.scripting.executeScript({
         target: { tabId: tab.id },
-        func: () => {
-          // Try standard query first
-          let paragraphs = document.querySelectorAll('#prompt-textarea p');
-          
-          // If empty, check for shadow DOM
+        func: (url) => {
+          let paragraphs;
+
+          if (url.startsWith('https://claude.ai')) {
+            paragraphs = document.querySelectorAll('.ProseMirror p, [class*="ProseMirror"] p');
+          } else if (url.startsWith('https://lovable.dev')) {
+            return document.getElementById('chatinput')?.value || null;
+          } else { // ChatGPT
+            paragraphs = document.querySelectorAll('#prompt-textarea p');
+          }
+
+          // Shadow DOM fallback
           if (paragraphs.length === 0) {
-            const textarea = document.getElementById('prompt-textarea');
-            paragraphs = textarea?.shadowRoot?.querySelectorAll('p') || [];
+            let shadowRootElement;
+
+            if (url.startsWith('https://claude.ai')) {
+              const proseMirror = document.querySelector('.ProseMirror');
+              shadowRootElement = proseMirror?.shadowRoot;
+            } else if (url.startsWith('https://chatgpt.com')) {
+              const textarea = document.getElementById('prompt-textarea');
+              shadowRootElement = textarea?.shadowRoot?.querySelector('div[contenteditable]');
+            }
+
+            paragraphs = shadowRootElement?.querySelectorAll('p') || [];
           }
-          
+
           return paragraphs.length > 0 
-                ? Array.from(paragraphs).map(p => p.textContent.trim()).join('\n\n')
-                : null;        
-          }
+            ? Array.from(paragraphs).map(p => p.textContent.trim()).join('\n\n')
+            : null;
+        },
+        args: [tab.url]
       });
 
       const promptText = injectionResult[0]?.result;
       
       if (!promptText?.trim()) {
-        throw new Error('No text found in ChatGPT input box.');
+        throw new Error('No text found in the input box.');
       }
 
       if (!tab) throw new Error('No active tab found');
