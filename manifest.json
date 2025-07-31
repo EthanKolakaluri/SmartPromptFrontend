@@ -22,7 +22,7 @@
 
   "content_scripts": [
     {
-      "matches": ["https://chat.openai.com/*", "https://chatgpt.com/*"],
+      "matches": ["https://chat.openai.com/*", "https://chatgpt.com/*","https://lovable.dev/*","https://claude.ai/*"],
       "js": ["content.js"],
       "run_at": "document_end"
     }
@@ -41,11 +41,13 @@
   "host_permissions": [
     "https://api.openai.com/*",
     "https://chat.openai.com/*",
-    "https://chatgpt.com/*"
+    "https://chatgpt.com/*",
+    "https://lovable.dev/*",
+    "https://claude.ai/*"
   ],
   
   "web_accessible_resources": [{
     "resources": ["content.js"],
-    "matches": ["https://chat.openai.com/*", "https://chatgpt.com/*"]
+    "matches": ["https://chat.openai.com/*", "https://chatgpt.com/*","https://lovable.dev/*","https://claude.ai/*"]
   }]
 }
